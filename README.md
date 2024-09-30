@@ -41,6 +41,9 @@ I am not sure, but it's possible that other keys of the composer file are requir
 
 ## Step 4: Create test DB cloning an existing clean WP db and remaning wp prefix
 
+> This is not needed if you already have the test DB,
+> and you dont need to change the prefix if you dont want to
+
 If not created, create a clean DB in the same mysql host where WP runs. It should contain a clean WP installation. If you don't know how to get it, clone it from an existing DB
 
 - let's assume it's called `wp_tests_todelete`
@@ -68,6 +71,7 @@ If not created, create a clean DB in the same mysql host where WP runs. It shoul
 
 ## Step 5: tests/wp-config.php again
 
+Template for wp-config.php: `https://github.com/adeleyeayodeji/wordpress-test-plugin/blob/master/tests/wp-config.php`
 Edit `tests/wp-config.php` to match the new DB connection:
 
 ```
@@ -75,7 +79,7 @@ define('DB_NAME', getenv('WP_DB_NAME') ?: 'wp_tests_todelete');
 define('DB_USER', getenv('WP_DB_USER') ?: 'root');
 define('DB_PASSWORD', getenv('WP_DB_PASS') ?: 'root');
 define('DB_HOST', getenv('WP_DB_HOST') ?: 'localhost');
-$table_prefix = 'wptest_';
+$table_prefix = 'wptest_'; # This is not needed if you didnt change it.
 ```
 
 ## Ready
@@ -84,4 +88,4 @@ Ready to run the test with
 
 `composer test`  
 or  
-`./vendor/bin/phpunit tests/testSample.php`, previously renaming the file and the class inside the php.
+`./vendor/bin/phpunit tests/test-sample.php`, previously renaming the file and the class inside the php.
